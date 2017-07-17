@@ -12,7 +12,7 @@ public class DBConnection {
 		String DB_URL ="jdbc:mysql://localhost:3306/MarketPlace";
 		try {
 		Class.forName("com.mysql.jdbc.Driver");
-			 System.out.println("Connecting to database...");
+			// System.out.println("Connecting to database...");
 			 
 		      conn = DriverManager.getConnection(DB_URL,"root","admin321");
 		      
