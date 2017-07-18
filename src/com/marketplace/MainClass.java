@@ -4,9 +4,11 @@ import java.util.Scanner;
 
 import com.dao.Jobs;
 import com.dao.UserData;
-import com.service.Member;
-import com.service.Seeker;
-import com.service.Sitter;
+import com.model.Member;
+import com.model.Seeker;
+import com.model.Sitter;
+import com.service.ServiceImp;
+import com.service.ServiceInt;
 
 public class MainClass {
 	
@@ -17,7 +19,7 @@ public class MainClass {
 		
 		Seeker seeker = new Seeker();
 		Sitter sitter = new Sitter();
-	
+	ServiceInt si= new ServiceImp();
 		Member reg = new Member();
 		int ch;
 		do{
@@ -31,7 +33,7 @@ public class MainClass {
 			switch(ch){
 			//for registration purpose
 			case 1:{
-				   reg.doRegister(sc);
+				   si.doRegister(sc,reg);
 		
 				break;
 			   }
@@ -40,7 +42,7 @@ public class MainClass {
 				System.out.println("Enter Email: ");
 				String email = sc.nextLine();
 				
-				seeker.goAsSeeker(email, sc);
+				si.goAsSeeker(email, sc);
 				break;
 			   }
 			//for login as sitter
@@ -49,7 +51,7 @@ public class MainClass {
 				System.out.println("Enter Email: ");
 				String email = sc.next();
 				
-				sitter.goAsSitter(email,sc);
+				si.goAsSitter(email,sc);
 			
 				break;	
 			   }
