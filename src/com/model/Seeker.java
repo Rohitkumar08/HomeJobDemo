@@ -9,8 +9,9 @@ import com.dao.UserData;
 
 
 public class Seeker{
-	public static int noOfChilds;
-	public static String spouseName;
+	private static int noOfChilds;
+	private static String spouseName;
+	
 	public static int getNoOfChilds() {
 		return noOfChilds;
 	}
@@ -23,6 +24,7 @@ public class Seeker{
 	public static void setSpouseName(String spouseName) {
 		Seeker.spouseName = spouseName;
 	}
+	
 
 	//for seeker operations
 	

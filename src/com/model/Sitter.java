@@ -3,8 +3,8 @@ package com.model;
 import com.marketplace.MainClass;
 
 public class Sitter extends MainClass{
-	public int yearsOfExperience;
-	public int expectedPay;
+	private int yearsOfExperience;
+	private int expectedPay;
 	
 	
 	public int getYearsOfExperience() {

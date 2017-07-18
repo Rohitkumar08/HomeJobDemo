@@ -7,11 +7,11 @@ import com.validations.validation;
 
 public class Member {
 	
-	public  String firstName;
-	public String phone;
-	public  String email;
-	public String add;
-	public  String memberType;
+	private  String firstName;
+	private String phone;
+	private String email;
+	private String add;
+	private  String memberType;
 	
 	public String getFirstName() {
 		return firstName;

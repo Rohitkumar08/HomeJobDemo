@@ -24,32 +24,32 @@ public class ServiceImp implements ServiceInt {
 	
 		do{
 			System.out.println("Enter First Name: ");
-			mem.firstName= sc.nextLine();
-		}while(!validate.validateName(mem.firstName));
+			mem.setFirstName(sc.nextLine());
+		}while(!validate.validateName(mem.getFirstName()));
 		
 		do{
 			System.out.println("Enter Mobile no: ");
-			mem.phone= sc.nextLine();
-		}while(!validate.validatePhone(mem.phone));
+			mem.setPhone(sc.nextLine());
+		}while(!validate.validatePhone(mem.getPhone()));
 		
 //		sc.nextLine();
 		do{
 			System.out.println("Enter Email: ");
-			mem.email= sc.nextLine();
-		}while(!validate.validateEmail(mem.email));
+			mem.setEmail(sc.nextLine());
+		}while(!validate.validateEmail(mem.getEmail()));
 		
 		
 		System.out.println("Enter Address: ");
-		mem.add= sc.nextLine();
+		mem.setAdd(sc.nextLine());
 		
 		System.out.println("Enter Member Type: ");
-		mem.memberType= sc.nextLine();
+		mem.setMemberType(sc.nextLine());
 		//sc.close();
 		
-		boolean registered=ud.putUserData(mem.firstName, mem.phone, mem.email, mem.add, mem.memberType);
+		boolean registered=ud.putUserData(mem.getFirstName(), mem.getPhone(), mem.getEmail(), mem.getAdd(), mem.getMemberType());
 		if(registered){
-			String uType = ud.checkType(mem.firstName);
-			int uid = ud.getID(mem.email);
+			String uType = ud.checkType(mem.getFirstName());
+			int uid = ud.getID(mem.getEmail());
 			if(uType.equals("sitter")){
 					//TODO sitter operations
 				fillSitterDetails(uid,sc);
@@ -195,11 +195,11 @@ public class ServiceImp implements ServiceInt {
 	public void fillSitterDetails(int uid, Scanner sc) {
 		// TODO Auto-generated method stub
 		System.out.println("ENTER YEARS OF EXPERIENCE: ");
-		sitter.yearsOfExperience= sc.nextInt();
+		sitter.setYearsOfExperience(sc.nextInt());
 		
 		System.out.println("ENTER YOUR EXPECTED PAY: ");
-		sitter.expectedPay= sc.nextInt();
-		ud.registerSitter(uid, sitter.yearsOfExperience, sitter.expectedPay);
+		sitter.setExpectedPay(sc.nextInt());
+		ud.registerSitter(uid, sitter.getYearsOfExperience(), sitter.getExpectedPay());
 		
 		
 	}
@@ -305,12 +305,12 @@ public void goAsSeeker(String email, Scanner sc){
 }
 public void fillSeekerDetails(int uid, Scanner sc){
 	System.out.println("Enter no of Childs: ");
-	seeker.noOfChilds = sc.nextInt();
+	seeker.setNoOfChilds(sc.nextInt());
 	
 	System.out.println("Enter spouse name: ");
-	seeker.spouseName = sc.next();	 
+	seeker.setSpouseName(sc.next());	 
 
-	ud.registerSeeker(uid,seeker.noOfChilds,seeker.spouseName);
+	ud.registerSeeker(uid,seeker.getNoOfChilds(),seeker.getSpouseName());
 
  }
 
