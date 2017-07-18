@@ -87,6 +87,8 @@ public class Member {
 	
 	UserData ud = new UserData();
 	validation validate = new validation();
+	
+	//for registration
 	public void doRegister(Scanner sc){
 	
 		do{
@@ -94,13 +96,17 @@ public class Member {
 			firstName= sc.nextLine();
 		}while(!validate.validateName(firstName));
 		
+		do{
+			System.out.println("Enter Mobile no: ");
+			phone= sc.nextLine();
+		}while(!validate.validatePhone(phone));
 		
-		System.out.println("Enter Mobile no: ");
-		phone= sc.nextLine();
 //		sc.nextLine();
+		do{
+			System.out.println("Enter Email: ");
+			email= sc.nextLine();
+		}while(!validate.validateEmail(email));
 		
-		System.out.println("Enter Email: ");
-		email= sc.nextLine();
 		
 		System.out.println("Enter Address: ");
 		add= sc.nextLine();

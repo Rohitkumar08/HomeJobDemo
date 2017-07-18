@@ -191,4 +191,65 @@ public class UserData {
 		
 	}
 
+	public List<String> getAppliedJobs(int uid) {
+		// TODO Auto-generated method stub
+		String sql = "select job_title from Jobs where job_id IN (select jobId from Application where member_id=?)";
+         List<String>  jobApplied= new ArrayList<>();
+		
+		try {
+			ps= connect.prepareStatement(sql);
+			ps.setInt(1, uid);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()){
+				jobApplied.add(rs.getString("job_title"));
+			
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jobApplied;
+	
+	}
+
+	public boolean deleteApplication(String jobTitle, int uid) {
+		// TODO Auto-generated method stub
+		String sql = "delete from Application where jobId =(select job_id from Jobs where job_title=?) AND member_id=?";
+		try {
+			ps= connect.prepareStatement(sql);
+			ps.setString(1, jobTitle);
+			ps.setInt(2, uid);
+			ps.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+		
+		return false;
+	}
+
+	public int checkPostedBy(String job_title) {
+		// TODO Auto-generated method stub
+		String sql = "select posted_by from Jobs where job_title=?";
+		int postedBy=0;
+		try {
+			ps= connect.prepareStatement(sql);
+			ps.setString(1,job_title);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+				postedBy = rs.getInt("posted_by");
+			return postedBy;
+			 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
 }

@@ -15,9 +15,7 @@ public class DBConnection {
 			// System.out.println("Connecting to database...");
 			 
 		      conn = DriverManager.getConnection(DB_URL,"root","admin321");
-		      
-		      
-		
+
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

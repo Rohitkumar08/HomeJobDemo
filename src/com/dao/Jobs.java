@@ -25,10 +25,10 @@ public class Jobs {
 	String sql;
 	
 	
-	public boolean createJob(int uid) {
+	public boolean createJob(int uid,Scanner sc) {
 		// TODO Auto-generated method stub
+		sc.nextLine();
 		
-		Scanner sc= new Scanner(System.in);
 		//SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
 		System.out.println("Enter Job Title: ");
@@ -44,7 +44,7 @@ public class Jobs {
 //		}
 		
 		System.out.println("Enter End date(\"dd/MM/yyyy\"): ");
-		endDate = sc.next();
+		endDate = sc.nextLine();
 //		try {
 //			Date enddate = (Date) sdf.parse(endDate);
 //		} catch (ParseException e) {
@@ -53,16 +53,16 @@ public class Jobs {
 //		}
 		
 		System.out.println("Enter Start Time: ");
-		startTime = sc.next();
+		startTime = sc.nextLine();
 		
 		
 		System.out.println("Enter End time: ");
-		endTime = sc.next();
+		endTime = sc.nextLine();
 		
 		System.out.println("Enter pay per hour: ");
 		payPerHour=sc.nextInt();
+		sc.nextLine();
 		
-		sc.close();
 		sql = "insert into Jobs(job_title, posted_by, start_date, end_date, start_time, end_time, pay_per_hour) values(?,?,?,?,?,?,?)";
 		try {
 			ps = connect.prepareStatement(sql);
@@ -75,7 +75,7 @@ public class Jobs {
 			ps.setInt(7, payPerHour);
 			
 			ps.executeUpdate();
-			System.out.println("*****JOB SUCCESSFULLY CREATED***********");
+			
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -182,6 +182,6 @@ public class Jobs {
 		}
 		return false;
 	}
-	
+
 
 }
