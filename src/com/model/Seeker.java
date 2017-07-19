@@ -1,12 +1,5 @@
 package com.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
-import com.dao.Jobs;
-import com.dao.UserData;
-
 
 public class Seeker{
 	private static int noOfChilds;

@@ -2,11 +2,7 @@ package com.marketplace;
 
 import java.util.Scanner;
 
-import com.dao.Jobs;
-import com.dao.UserData;
 import com.model.Member;
-import com.model.Seeker;
-import com.model.Sitter;
 import com.service.ServiceImp;
 import com.service.ServiceInt;
 
@@ -16,9 +12,6 @@ public class MainClass {
 
 	public static void main(String []args){
 		
-		
-		Seeker seeker = new Seeker();
-		Sitter sitter = new Sitter();
 	ServiceInt si= new ServiceImp();
 		Member reg = new Member();
 		int ch;

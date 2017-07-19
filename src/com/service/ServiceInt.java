@@ -1,9 +1,9 @@
 package com.service;
 
+
 import java.util.Scanner;
 
 import com.model.Member;
-import com.model.Sitter;
 
 public interface ServiceInt {
 

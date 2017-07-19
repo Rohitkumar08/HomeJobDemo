@@ -7,40 +7,44 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.model.Member;
+import com.model.Seeker;
+import com.model.Sitter;
+
 public class UserData {
 		private DBConnection con=new DBConnection();
 	private Connection connect= con.getconnection(); 
 	PreparedStatement ps;
-	public boolean putUserData(String firstName, String phone, String email, String add, String type ){
+	public boolean putUserData(Member mem){
 		 
 		String sql = "insert into users(uname, phone,uemail,utype) values(?,?,?,?)";
 		try {
 			ps = connect.prepareStatement(sql);
-			ps.setString(1, firstName);
-			ps.setString(2, phone);
-			ps.setString(3, email);
-			ps.setString(4, type);
+			ps.setString(1, mem.getFirstName());
+			ps.setString(2, mem.getPhone());
+			ps.setString(3, mem.getEmail());
+			ps.setString(4, mem.getMemberType());
 			
 			ps.executeUpdate();
 			System.out.println("******successfully registered*********");
-			
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		}
-		return true;
+		
 		
 		
 	}
 	
-	public String checkType(String firstName){
+	public String checkType(Member mem){
 		String uType=null;
 		String sql = "select utype from users where uname= ?";
 		
 		try {
 			ps= connect.prepareStatement(sql);
-			ps.setString(1, firstName);
+			ps.setString(1, mem.getFirstName());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
 				uType = rs.getString("utype");
@@ -81,14 +85,14 @@ public class UserData {
 		
 	}
 
-	public void registerSeeker(int uid, int no_of_child, String spouse_name) {
+	public void registerSeeker(int uid, Seeker seeker) {
 		// TODO Auto-generated method stub
 		String sql = "insert into seeker values(?, ?, ?)";
 		try {
 			ps= connect.prepareStatement(sql);
 			ps.setInt(1, uid);
-			ps.setInt(2, no_of_child);
-			ps.setString(3, spouse_name);
+			ps.setInt(2, seeker.getNoOfChilds());
+			ps.setString(3, seeker.getSpouseName());
 			
 			ps.executeUpdate();
 			System.out.println("*****Seekers details inserted******");
@@ -102,15 +106,15 @@ public class UserData {
 		
 	}
 
-	public void registerSitter(int uid, int yearsOfExperience, int expectedPay) {
+	public void registerSitter(int uid, Sitter sitter) {
 		// TODO Auto-generated method stub
 		
 		String sql = "insert into sitter(sitter_id, years_of_exp, expected_pay) values(?, ?, ?)";
 		try {
 			ps= connect.prepareStatement(sql);
 			ps.setInt(1, uid);
-			ps.setInt(2, yearsOfExperience);
-			ps.setInt(3, expectedPay);
+			ps.setInt(2, sitter.getYearsOfExperience());
+			ps.setInt(3, sitter.getExpectedPay());
 			
 			ps.executeUpdate();
 			System.out.println("*****Sitters details inserted******");

@@ -1,9 +1,6 @@
 package com.model;
 
-import java.util.Scanner;
 
-import com.dao.UserData;
-import com.validations.validation;
 
 public class Member {
 	

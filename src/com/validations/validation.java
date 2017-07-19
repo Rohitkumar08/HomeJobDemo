@@ -3,12 +3,14 @@ package com.validations;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.model.Member;
+
 public class validation {
 	
-	public boolean validateName(String firstName){
+	public boolean validateName(Member mem){
 //		char[] arr = firstName.toCharArray();
 		Pattern p = Pattern.compile("[0-9]");
-		Matcher m = p.matcher(firstName);
+		Matcher m = p.matcher(mem.getFirstName());
 		boolean b = m.find();
 		//System.out.println(b);
 		if(b){
@@ -22,7 +24,7 @@ public class validation {
 	
 	
 	//VAlidation for Phone no
-	public boolean validatePhone(String phone){
+	public boolean validatePhone(Member mem){
 		
 //		Pattern p = Pattern.compile("\\d{3}");
 //		Matcher m = p.matcher(phone);
@@ -35,7 +37,7 @@ public class validation {
 //		else
 //			return true;
 		
-		if (phone.matches("\\d{10}")) 
+		if (mem.getPhone().matches("\\d{10}")) 
 			return true;
 		
 	      else
@@ -48,14 +50,14 @@ public class validation {
 	
 	//validation for Email
 	
-	public boolean validateEmail(String email){
+	public boolean validateEmail(Member mem){
 		final String EMAIL_REGEX="^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})";
 	    //static Pattern object, since pattern is fixed
 	    Pattern pattern;
 	    //non-static Matcher object because it's created from the input String
 	    Matcher matcher;
 	    pattern = Pattern.compile(EMAIL_REGEX, Pattern.CASE_INSENSITIVE);
-	    matcher = pattern.matcher(email);
+	    matcher = pattern.matcher(mem.getEmail());
 	    if(matcher.matches()){
 	    	return true;
 	    }

@@ -25,18 +25,18 @@ public class ServiceImp implements ServiceInt {
 		do{
 			System.out.println("Enter First Name: ");
 			mem.setFirstName(sc.nextLine());
-		}while(!validate.validateName(mem.getFirstName()));
+		}while(!validate.validateName(mem));
 		
 		do{
 			System.out.println("Enter Mobile no: ");
 			mem.setPhone(sc.nextLine());
-		}while(!validate.validatePhone(mem.getPhone()));
+		}while(!validate.validatePhone(mem));
 		
 //		sc.nextLine();
 		do{
 			System.out.println("Enter Email: ");
 			mem.setEmail(sc.nextLine());
-		}while(!validate.validateEmail(mem.getEmail()));
+		}while(!validate.validateEmail(mem));
 		
 		
 		System.out.println("Enter Address: ");
@@ -46,16 +46,14 @@ public class ServiceImp implements ServiceInt {
 		mem.setMemberType(sc.nextLine());
 		//sc.close();
 		
-		boolean registered=ud.putUserData(mem.getFirstName(), mem.getPhone(), mem.getEmail(), mem.getAdd(), mem.getMemberType());
+		boolean registered=ud.putUserData(mem);
 		if(registered){
-			String uType = ud.checkType(mem.getFirstName());
+			String uType = ud.checkType(mem);
 			int uid = ud.getID(mem.getEmail());
 			if(uType.equals("sitter")){
 					//TODO sitter operations
 				fillSitterDetails(uid,sc);
 				performSitterTask(uid,sc);
-				
-				
 			}
 			else{
 				
@@ -65,6 +63,9 @@ public class ServiceImp implements ServiceInt {
 			}
 		
 	}
+		else{
+			System.out.println("****EMAIL ID ALREADY EXISTS****");
+		}
 	
   }
 	
@@ -167,6 +168,7 @@ public class ServiceImp implements ServiceInt {
 			//for deletion of a job
 			case 3:{
 				System.out.println("****HERE IS THE LIST OF ALL JOBS: ");
+				@SuppressWarnings("unchecked")
 				List<String> jobs=ud.listAllJobs();
 				int i=1;
 				for(String s:jobs){
@@ -191,7 +193,7 @@ public class ServiceImp implements ServiceInt {
 	
 		
 	}
-	//fillibf sitter details
+	//fill sitter details
 	public void fillSitterDetails(int uid, Scanner sc) {
 		// TODO Auto-generated method stub
 		System.out.println("ENTER YEARS OF EXPERIENCE: ");
@@ -199,14 +201,12 @@ public class ServiceImp implements ServiceInt {
 		
 		System.out.println("ENTER YOUR EXPECTED PAY: ");
 		sitter.setExpectedPay(sc.nextInt());
-		ud.registerSitter(uid, sitter.getYearsOfExperience(), sitter.getExpectedPay());
+		ud.registerSitter(uid, sitter);
 		
 		
 	}
-	
-	
+		
 	//perform sitter tasks
-	
 	public void performSitterTask(int uid, Scanner sc) {
 		// TODO Auto-generated method stub
 		do{
@@ -224,7 +224,7 @@ public class ServiceImp implements ServiceInt {
 				List<String> jobs=ud.listAllJobs();
 				int i=1;
 				for(String s:jobs){
-					System.out.println(s + " : "+ i);
+					System.out.println(i + ": "+ s);
 					i++;
 				}
 				System.out.println("ENTER CORRESPONDING JOB-ID FOR WHICH YOU WANT TO APPLY:  ");
@@ -263,13 +263,26 @@ public class ServiceImp implements ServiceInt {
 					System.out.println(i + " : "+ s);
 					i++;
 				}
-				System.out.println("****ENTER CORRESPONDING APPLICATION ID WHICH YOU WANT TO DELETE*****");
-				int id = sc.nextInt();
-				String jobTitle = hmap.get(id);
-				System.out.println(jobTitle);
-				boolean deleteApp = ud.deleteApplication(jobTitle,uid);
-				if(deleteApp)
-					System.out.println("*****SUCCESSFULLY DELETED THE APPLICATION*****");
+				boolean completed = true;
+				while(completed){
+					System.out.println("****ENTER CORRESPONDING APPLICATION ID WHICH YOU WANT TO DELETE*****");
+					int id = sc.nextInt();
+					if(hmap.containsKey(id)){
+						
+						String jobTitle = hmap.get(id);
+						System.out.println(jobTitle);
+						boolean deleteApp = ud.deleteApplication(jobTitle,uid);
+						if(deleteApp)
+							System.out.println("*****SUCCESSFULLY DELETED THE APPLICATION*****");
+							completed=false;
+					}
+					else{
+						System.out.println("*****NOT A VALID APPLICATION ID********");
+						
+					}
+				
+				}
+				
 				
 			 }
 			default:
@@ -282,14 +295,18 @@ public class ServiceImp implements ServiceInt {
 	}
 	
 	//go as sitter
-public void goAsSitter(String email,Scanner sc){
+	public void goAsSitter(String email,Scanner sc){
 		
 		int uid=ud.getID(email);
+		if(uid==0){
+			System.out.println("*****NOT A VALID MEMEBER PLEASE REGISTER FIRST*****");
+		}
+		else
 		performSitterTask(uid,sc);
 		
 		
 	}
-public void goAsSeeker(String email, Scanner sc){
+	public void goAsSeeker(String email, Scanner sc){
 	
 	int uid=ud.getID(email);
 	
@@ -298,24 +315,20 @@ public void goAsSeeker(String email, Scanner sc){
 	performSeekerTask(uid,sc);
 	else{
 		System.out.println("****NOT A VALID EMAIL*****");
-		System.exit(0);
+		
 	}
 		
 	
 }
-public void fillSeekerDetails(int uid, Scanner sc){
+	public void fillSeekerDetails(int uid, Scanner sc){
 	System.out.println("Enter no of Childs: ");
 	seeker.setNoOfChilds(sc.nextInt());
 	
 	System.out.println("Enter spouse name: ");
 	seeker.setSpouseName(sc.next());	 
 
-	ud.registerSeeker(uid,seeker.getNoOfChilds(),seeker.getSpouseName());
+	ud.registerSeeker(uid,seeker);
 
  }
-
-
-
-
 
 }
